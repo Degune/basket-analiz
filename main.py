@@ -22,20 +22,14 @@ class BasketbolAnalizor:
         return self.dna, self.dna_hiz
 
 
-    def q1_on_adil(self):
+   def q1_on_adil(self):
 
-        q1_katsayi = 1.05
-        on_hiz = self.dna_hiz * q1_katsayi
-        q1_on_barem = on_hiz * 10
+    q1_katsayi = 1.05
+    on_hiz = self.dna_hiz * q1_katsayi
+    q1_on_barem = on_hiz * 10
 
-        esikler = {
-            "alt_bomba": q1_on_barem + 7.0,
-            "alt_guclu": q1_on_barem + 5.5,
-            "ust_guclu": q1_on_barem - 5.5,
-            "ust_bomba": q1_on_barem - 7.0
-        }
+    return q1_on_barem, esikler
 
-        return q1_on_barem, esikler
 
 
 # INPUT MODELLERİ
@@ -79,9 +73,9 @@ def q1_on():
     if analiz is None:
         return {"error": "Önce /start çağır"}
 
-    barem, esikler = analiz.q1_on_adil()
+    barem = analiz.q1_on_adil()
 
     return {
-        "adil_barem": barem,
-        "esikler": esikler
+        "adil_barem": barem
     }
+
