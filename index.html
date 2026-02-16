@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basket Analiz</title>
+</head>
+<body>
+
+<h2>Basket Analiz Sistemi</h2>
+
+<label>Oran 1:</label>
+<input type="text" id="oran1"><br><br>
+
+<label>Oran 2:</label>
+<input type="text" id="oran2"><br><br>
+
+<button onclick="analiz()">Analiz Et</button>
+
+<h3 id="sonuc"></h3>
+
+<script>
+function analiz() {
+    let oran1 = document.getElementById("oran1").value;
+    let oran2 = document.getElementById("oran2").value;
+
+    document.getElementById("sonuc").innerText =
+        "Sonuç: hesaplanıyor...";
+}
+</script>
+
+</body>
+</html>
