@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,10 +8,10 @@
 <h2>Basket Analiz Sistemi</h2>
 
 <label>Oran 1:</label>
-<input type="text" id="oran1"><br><br>
+<input type="number" id="oran1"><br><br>
 
 <label>Oran 2:</label>
-<input type="text" id="oran2"><br><br>
+<input type="number" id="oran2"><br><br>
 
 <button onclick="analiz()">Analiz Et</button>
 
@@ -21,27 +20,38 @@
 <script>
 async function analiz() {
 
-    let oran1 = parseFloat(document.getElementById("oran1").value);
-    let oran2 = parseFloat(document.getElementById("oran2").value);
+    let oran1 = document.getElementById("oran1").value;
+    let oran2 = document.getElementById("oran2").value;
 
-    let response = await fetch("https://basket-api-ro0g.onrender.com/analyze", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            oran1: oran1,
-            oran2: oran2
-        })
-    });
+    document.getElementById("sonuc").innerText = "Bekleniyor...";
 
-    let data = await response.json();
+    try {
 
-    document.getElementById("sonuc").innerText =
-        "Sonuç: " + data.sonuc;
+        let response = await fetch("https://basket-api-ro0g.onrender.com/analyze", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                oran1: parseFloat(oran1),
+                oran2: parseFloat(oran2)
+            })
+        });
+
+        let data = await response.json();
+
+        document.getElementById("sonuc").innerText =
+            "Sonuç: " + data.sonuc;
+
+    } catch (error) {
+
+        document.getElementById("sonuc").innerText =
+            "HATA: API bağlantısı başarısız";
+
+    }
+
 }
 </script>
-
 
 </body>
 </html>
