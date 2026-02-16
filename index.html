@@ -18,6 +18,21 @@
 
 <h3 id="sonuc"></h3>
 
+<button onclick="resetAnaliz()">Temizle / Yeni Maç</button>
+
+<script>
+function resetAnaliz() {
+    fetch("https://basket-api-ro0g.onrender.com/reset", {
+        method: "POST"
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert("Yeni maç başlatıldı")
+    })
+}
+</script>
+
+
 <script>
 
 async function analiz() {
