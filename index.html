@@ -19,14 +19,29 @@
 <h3 id="sonuc"></h3>
 
 <script>
-function analiz() {
-    let oran1 = document.getElementById("oran1").value;
-    let oran2 = document.getElementById("oran2").value;
+async function analiz() {
+
+    let oran1 = parseFloat(document.getElementById("oran1").value);
+    let oran2 = parseFloat(document.getElementById("oran2").value);
+
+    let response = await fetch("https://basket-api-ro0g.onrender.com/analyze", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            oran1: oran1,
+            oran2: oran2
+        })
+    });
+
+    let data = await response.json();
 
     document.getElementById("sonuc").innerText =
-        "Sonuç: hesaplanıyor...";
+        "Sonuç: " + data.sonuc;
 }
 </script>
+
 
 </body>
 </html>
