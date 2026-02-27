@@ -9,8 +9,8 @@ import time
 import datetime
 import re
 
-def fetch_advanced_stats():
-    """Selenium ile RealGM Advanced Stats çek"""
+def get_driver():
+    """Chrome driver oluştur (GitHub Actions uyumlu)"""
     
     options = Options()
     options.add_argument('--headless')
@@ -20,14 +20,26 @@ def fetch_advanced_stats():
     options.add_argument('--window-size=1920,1080')
     options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36')
     
-    driver = webdriver.Chrome(options=options)
+    # GitHub Actions'ta Chrome yolu
+    options.binary_location = '/usr/bin/chromium-browser'
+    
+    # ChromeDriver yolu
+    service = Service('/usr/bin/chromedriver')
+    
+    driver = webdriver.Chrome(service=service, options=options)
+    return driver
+
+def fetch_advanced_stats():
+    """Selenium ile RealGM Advanced Stats çek"""
+    
+    driver = get_driver()
     
     try:
         url = "https://basketball.realgm.com/nba/team-stats/2026/Advanced_Stats/Team_Totals/Regular_Season"
         print(f"Sayfa yükleniyor: {url}")
         
         driver.get(url)
-        time.sleep(5)  # JS render için bekle
+        time.sleep(5)
         
         wait = WebDriverWait(driver, 30)
         table = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "tablesaw")))
@@ -81,16 +93,9 @@ def fetch_advanced_stats():
         driver.quit()
 
 def fetch_misc_stats(teams):
-    """Selenium ile Misc Stats çek (MOV, Win%)"""
+    """Selenium ile Misc Stats çek"""
     
-    options = Options()
-    options.add_argument('--headless')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--disable-gpu')
-    options.add_argument('--window-size=1920,1080')
-    
-    driver = webdriver.Chrome(options=options)
+    driver = get_driver()
     
     try:
         url = "https://basketball.realgm.com/nba/team-stats/2026/Misc_Stats/Team_Totals/Regular_Season"
