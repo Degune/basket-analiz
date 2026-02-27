@@ -141,14 +141,15 @@ def fetch_misc_stats(existing_teams):
     return existing_teams
 
 def save_to_json(teams):
-    """JSON olarak kaydet"""
+    import datetime
+    
     output = {
-        'last_updated': str(pd_timestamp()) if 'pd_timestamp' in dir() else 'manual',
+        'last_updated': datetime.datetime.now().isoformat(),
         'teams': teams
     }
     
     with open('teams.json', 'w', encoding='utf-8') as f:
-        json.dump(teams, f, ensure_ascii=False, indent=2)
+        json.dump(output, f, ensure_ascii=False, indent=2)
     
     print(f"\n{Colors.GREEN}✓ teams.json kaydedildi ({len(teams)} takım){Colors.END}")
 
