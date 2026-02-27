@@ -1,0 +1,8 @@
+{
+  "date": "2025-02-27",
+  "matches": [
+    {"id": 1, "home": "BOS", "away": "NYK", "time": "20:00", "league": "NBA"},
+    {"id": 2, "home": "LAL", "away": "GSW", "time": "22:30", "league": "NBA"},
+    {"id": 3, "home": "DEN", "away": "OKC", "time": "01:00", "league": "NBA"}
+  ]
+}
